@@ -1,6 +1,12 @@
-
-db.sqlite3
 .env
 .venv/
+venv/
 __pycache__/
-*.pyc
+*.py[cod]
+db.sqlite3
+node_modules/
+dist/
+.idea/
+.vscode/
+
+.env.example
