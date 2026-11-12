@@ -12,6 +12,7 @@ import {
 import { Bar, Line } from "react-chartjs-2";
 import api, { clearTokens } from "./api";
 import AuthScreen from "./components/AuthScreen";
+import { getApiErrorMessage } from "./errorMessage";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, PointElement, LineElement, ArcElement, Tooltip, Legend, Filler);
 
@@ -46,10 +47,7 @@ function localDate() {
 }
 
 function requestError(error) {
-  const details = error.response?.data;
-  if (!details) return "Something went wrong. Please check your connection and try again.";
-  if (typeof details.detail === "string") return details.detail;
-  return Object.values(details).flat().join(" ");
+  return getApiErrorMessage(error, "Something went wrong. Please check your connection and try again.");
 }
 
 function displayDate(value) {

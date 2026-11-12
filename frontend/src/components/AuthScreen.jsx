@@ -1,13 +1,7 @@
 import { useState } from "react";
 import { ArrowRight, Eye, EyeOff, Leaf, LockKeyhole, Mail, Wallet } from "lucide-react";
 import api, { saveTokens } from "../api";
-
-function readableError(error) {
-  const data = error.response?.data;
-  if (!data) return "We couldn't reach SaveWise. Please try again.";
-  if (typeof data.detail === "string") return data.detail;
-  return Object.values(data).flat().join(" ");
-}
+import { getApiErrorMessage } from "../errorMessage";
 
 export default function AuthScreen({ onAuthenticated }) {
   const [mode, setMode] = useState("login");
@@ -36,7 +30,7 @@ export default function AuthScreen({ onAuthenticated }) {
       saveTokens(data);
       onAuthenticated();
     } catch (requestError) {
-      setError(readableError(requestError));
+      setError(getApiErrorMessage(requestError, "We couldn't reach SaveWise. Please try again."));
     } finally {
       setBusy(false);
     }
